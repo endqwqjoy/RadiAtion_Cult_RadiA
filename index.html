@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>RadiA — Hub</title>
+  <link rel="icon" href="favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root{
+      --metal-dark:#1B2A35;
+      --metal-gray:#3C3940;
+      --metal-matte:#4C4E58;
+      --neon-main:#64FF00;
+      --neon-soft:#88FF00;
+      --neon-hard:#1DFF00;
+      --toxic:#00BA00;
+      --blood:#C4281C;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(100,255,0,0.15), transparent 40%),
+        linear-gradient(180deg, #050708, #000);
+      color:#d6ffd0;
+      overflow-x:hidden;
+    }
+
+    .noise{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      background-image:url('RΔ.png');
+      mix-blend-mode:overlay;
+      opacity:0.05;
+    }
+
+    header{
+      text-align:center;
+      padding:80px 20px 60px;
+    }
+
+    header img{
+      width:120px;
+      filter:drop-shadow(0 0 20px var(--neon-main));
+    }
+
+    h1{
+      margin:30px 0 10px;
+      font-size:3rem;
+      letter-spacing:4px;
+      color:var(--neon-main);
+      text-shadow:0 0 20px rgba(100,255,0,.6);
+    }
+
+    .subtitle{
+      opacity:.8;
+      font-style:italic;
+    }
+
+    main{
+      max-width:1100px;
+      margin:auto;
+      padding:40px 20px 100px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:30px;
+    }
+
+    .node{
+      position:relative;
+      padding:30px 25px 35px;
+      background:
+        linear-gradient(145deg, rgba(76,78,88,.9), rgba(27,42,53,.9));
+      border:1px solid rgba(100,255,0,.25);
+      border-radius:18px;
+      text-decoration:none;
+      color:#eaffea;
+      transition:.35s ease;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.03),
+        0 0 25px rgba(0,0,0,.8);
+    }
+
+    .node::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:18px;
+      background:
+        linear-gradient(120deg, transparent 30%, rgba(100,255,0,.35), transparent 70%);
+      opacity:0;
+      transition:.35s;
+    }
+
+    .node:hover{
+      transform:translateY(-8px) scale(1.02);
+      box-shadow:0 0 40px rgba(100,255,0,.4);
+    }
+
+    .node:hover::before{opacity:1}
+
+    .node h2{
+      margin:0 0 10px;
+      font-size:1.6rem;
+      color:var(--neon-soft);
+      text-shadow:0 0 12px rgba(136,255,0,.5);
+    }
+
+    .node p{
+      margin:0;
+      opacity:.85;
+      line-height:1.5;
+      font-size:.95rem;
+    }
+
+    footer{
+      text-align:center;
+      padding:40px 20px;
+      font-size:.85rem;
+      opacity:.6;
+    }
+
+    /* Electro Swing / EDM pulse */
+    @keyframes pulse{
+      0%,100%{text-shadow:0 0 10px var(--neon-main)}
+      50%{text-shadow:0 0 30px var(--neon-main)}
+    }
+
+    h1{animation:pulse 3s infinite ease-in-out}
+
+    .radiant-text{
+      position: relative;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    /* VIỀN RADIANT – LỚP NGOÀI */
+    .radiant-text span::before{
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+
+      color: transparent;
+
+      /* VIỀN DÀY – MỀM */
+      -webkit-text-stroke: 10px #1DFF00;
+
+      /* SƠN PHÓNG XẠ */
+      filter: blur(2.0px);
+
+      opacity: 0.9;
+    }
+
+    /* LÕI CHỮ */
+    .radiant-text span{
+      position: relative;
+      color: #C3FF00;
+    }
+
+    @keyframes radFog{
+      0%,100%{ opacity:.100 }
+      50%{ opacity:1 }
+    }
+
+    .radiant-text span::before{
+      animation: radFog 4.5s infinite ease-in-out;
+    }
+
+    .radiant-text{
+      filter: drop-shadow(0 0 25px rgba(100,255,0,.25));
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<header>
+  <img src="favicon.png" alt="RadiA" />
+  <h1 class="radiant-text">
+  <span data-text="Su Su Bell Bell!">Su Su Bell Bell!</span>
+  </h1>
+  <div class="subtitle">Teslapunk · Electro Swing · Forbidden Industry</div>
+</header>
+
+<main>
+  <section class="grid">
+
+    <a class="node" href="Omega-ni_Church/index.html">
+      <h2>Ωni Church</h2>
+      <p>Nhánh II — Giáo hội Ωni. TΩxy Gem, Sister RΩ, nghi lễ độc – xà cừ – hầm mỏ.</p>
+    </a>
+
+    <a class="node" href="#">
+      <h2>βoro Industry</h2>
+      <p>Xí nghiệp βoro. Luyện kim, công nhân, thánh ca xả thải, Boro Sion.</p>
+    </a>
+
+    <a class="node" href="#">
+      <h2>Hellio City</h2>
+      <p>Thành Phố Treo. Sau NGÀY THANH RỪNG. Dây leo, ống dẫn, tàn tích.</p>
+    </a>
+
+    <a class="node" href="#">
+      <h2>RadiAnt’s Bunker</h2>
+      <p>Trung tâm RadiA. Virus RΔ, quạt lọc, thí nghiệm, nhân tạo thần.</p>
+    </a>
+
+  </section>
+</main>
+
+<footer>
+  © RadiA — Su Su Bell Bell
+</footer>
+
+</body>
+</html>
