@@ -180,9 +180,90 @@
       filter: drop-shadow(0 0 25px rgba(100,255,0,.25));
     }
 
+    #gate{
+      position:fixed;
+      inset:0;
+      background:radial-gradient(circle at center, #050708 0%, #000 70%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+    }
+
+    #gate-logo{
+      width:100px;
+      cursor:grab;
+      filter:
+        drop-shadow(0 0 40px rgba(100,255,0,.15))
+        brightness(.8);
+      transition: filter .3s;
+    }
+
+    #gate-logo{
+      user-select: none;
+      -webkit-user-drag: none;
+      touch-action: none;
+    }
+
+    #gate-logo:active{
+      cursor:grabbing;
+      filter:
+        drop-shadow(0 0 80px rgba(100,255,0,.35))
+        brightness(1);
+    }
+
+    #gate-text{
+      margin-top:20px;
+      font-size:.85rem;
+      letter-spacing:2px;
+      opacity:.6;
+      text-align:center;
+    }
+
+    #gate-logo{
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+/* ====== TRẠNG THÁI KHÓA ====== */
+    body{
+      transform: scale(2);
+      transition:
+        transform 10s ease,
+        filter 10s ease;
+    }
+
+    body.unlocked{
+      transform: scale(1);
+    }
+
+    /* bóng tối phủ */
+    #gate::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at center,
+          rgba(0,0,0,0) 0%,
+          rgba(0,0,0,.85) 65%,
+          rgba(0,0,0,1) 100%);
+      pointer-events:none;
+      transition: opacity 2.2s ease;
+    }
+
+    body.unlocked #gate::after{
+      opacity:0;
+    }
+
   </style>
 </head>
 <body>
+
+<div id="gate">
+  <img id="gate-logo" src="favicon.png" alt="RadiΔ Gate">
+  <div id="gate-text">GIỮ & XOAY</div>
+</div>
 
 <div class="noise"></div>
 
@@ -223,6 +304,64 @@
 <footer>
   © RadiA — Su Su Bell Bell
 </footer>
+
+<script>
+const logo = document.getElementById("gate-logo");
+const gate = document.getElementById("gate");
+
+let dragging = false;
+let lastAngle = 0;
+let totalRotation = 0;
+
+function getAngle(e){
+  const rect = logo.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+}
+
+logo.addEventListener("pointerdown", e=>{
+  dragging = true;
+  lastAngle = getAngle(e);
+  logo.setPointerCapture(e.pointerId);
+});
+
+logo.addEventListener("pointermove", e=>{
+  if(!dragging) return;
+
+  const angle = getAngle(e);
+  let delta = angle - lastAngle;
+
+  // khóa chỉ xoay 1 chiều (clockwise)
+  if(delta < -180) delta += 360;
+  if(delta > 180) delta -= 360;
+
+  if(delta > 0){
+    totalRotation += delta;
+    logo.style.transform = `rotate(${totalRotation}deg)`;
+  }
+
+  lastAngle = angle;
+
+  // đủ 13 vòng
+  if(totalRotation >= 13 * 360){
+    unlockGate();
+  }
+});
+
+logo.addEventListener("pointerup", ()=>{
+  dragging = false;
+});
+
+function unlockGate(){
+  document.body.classList.add("unlocked");
+
+  gate.style.transition = "opacity 2s ease";
+  gate.style.opacity = "0";
+
+  setTimeout(()=>gate.remove(),2000);
+}
+</script>
 
 </body>
 </html>
