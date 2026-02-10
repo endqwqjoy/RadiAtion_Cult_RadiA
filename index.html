@@ -193,8 +193,6 @@
 
     #gate-logo{
       position:absolute;
-
-      /* căn vị trí */
       top:23.6%;
       left:32.2%;
       transform: translate(-50%, -50%);
@@ -272,6 +270,8 @@
   <div id="gate-text">GIỮ & XOAY</div>
 </div>
 
+<audio id="gate-audio" src="gate.mp3" preload="auto"></audio>
+
 <div class="noise"></div>
 
 <header>
@@ -285,24 +285,34 @@
 <main>
   <section class="grid">
 
+    <a class="node" href="#">
+      <h2>Helliα City</h2>
+      <p>Gốc — NGÀY THANH RỪNG. ???, Dây leo, ống dẫn, tàn tích.</p>
+    </a>
+
+    <a class="node" href="#">
+      <h2>RadiΔ Bunker</h2>
+      <p>Thân — RadiΔ. Virus RΔ, thí nghiệm, nhân tạo thần.</p>
+    </a>
+
+    <a class="node" href="#">
+      <h2>βoros Industry</h2>
+      <p>Nhánh I — Xí nghiệp βoros. βoros Sion, công nhân βoros, acid Rβ.</p>
+    </a>
+
     <a class="node" href="Omega-ni_Church/index.html">
       <h2>Ωni Church</h2>
-      <p>Nhánh II — Giáo hội Ωni. TΩxy Gem, Sister RΩ, nghi lễ độc – xà cừ – hầm mỏ.</p>
+      <p>Nhánh II — Hầm mỏ Ωxy. TΩxy Gem – Nhà thờ Ωni, chị em RΩ.</p>
     </a>
 
     <a class="node" href="#">
-      <h2>βoro Industry</h2>
-      <p>Xí nghiệp βoro. Luyện kim, công nhân, thánh ca xả thải, Boro Sion.</p>
+      <h2>φhosφhor φort</h2>
+      <p>Nhánh III — Cảng φhosφhor. Neko Mean, ???.</p>
     </a>
 
     <a class="node" href="#">
-      <h2>Hellio City</h2>
-      <p>Thành Phố Treo. Sau NGÀY THANH RỪNG. Dây leo, ống dẫn, tàn tích.</p>
-    </a>
-
-    <a class="node" href="#">
-      <h2>RadiAnt’s Bunker</h2>
-      <p>Trung tâm RadiA. Virus RΔ, quạt lọc, thí nghiệm, nhân tạo thần.</p>
+      <h2>Σane Farm</h2>
+      <p>Nhánh IV — Trang tại Σane. Deer Σeer, ???.</p>
     </a>
 
   </section>
@@ -315,43 +325,61 @@
 <script>
 const logo = document.getElementById("gate-logo");
 const gate = document.getElementById("gate");
+const gateAudio = document.getElementById("gate-audio");
 
 let dragging = false;
 let lastAngle = 0;
 let totalRotation = 0;
+let targetRotation = 0;
+let unlocked = false;
+
+// cache tâm logo (KHÔNG reflow liên tục)
+let cx = 0, cy = 0;
+
+function updateCenter(){
+  const r = logo.getBoundingClientRect();
+  cx = r.left + r.width / 2;
+  cy = r.top + r.height / 2;
+}
+updateCenter();
+window.addEventListener("resize", updateCenter);
 
 function getAngle(e){
-  const rect = logo.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
   return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
 }
 
+// render bằng RAF → mượt
+function render(){
+  totalRotation += (targetRotation - totalRotation) * 0.25; // inertia
+  logo.style.transform = `rotate(${totalRotation}deg)`;
+  requestAnimationFrame(render);
+}
+render();
+
 logo.addEventListener("pointerdown", e=>{
+  if(unlocked) return;
   dragging = true;
   lastAngle = getAngle(e);
   logo.setPointerCapture(e.pointerId);
 });
 
 logo.addEventListener("pointermove", e=>{
-  if(!dragging) return;
+  if(!dragging || unlocked) return;
 
   const angle = getAngle(e);
   let delta = angle - lastAngle;
 
-  // khóa chỉ xoay 1 chiều (clockwise)
   if(delta < -180) delta += 360;
   if(delta > 180) delta -= 360;
 
+  // chỉ cho xoay 1 chiều
   if(delta > 0){
-    totalRotation += delta;
-    logo.style.transform = `rotate(${totalRotation}deg)`;
+    targetRotation += delta * 0.9; // sức nặng
   }
 
   lastAngle = angle;
 
-  // đủ 13 vòng
-  if(totalRotation >= 13 * 360){
+  if(targetRotation >= 13 * 360){
     unlockGate();
   }
 });
@@ -361,12 +389,22 @@ logo.addEventListener("pointerup", ()=>{
 });
 
 function unlockGate(){
+  if(unlocked) return;
+  unlocked = true;
+
   document.body.classList.add("unlocked");
 
   gate.style.transition = "opacity 2s ease";
   gate.style.opacity = "0";
 
-  setTimeout(()=>gate.remove(),2000);
+  setTimeout(()=>{
+    gate.remove();
+
+    // 🎧 phát nhạc SAU khi mở – max volume
+    gateAudio.volume = 1;
+    gateAudio.play();
+
+  }, 2000);
 }
 </script>
 
