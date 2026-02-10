@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>RadiA — Hub</title>
   <link rel="icon" href="favicon.png" />
-  
+
   <style>
     :root{
       --metal-dark:#1B2A35;
@@ -190,56 +190,21 @@
       z-index:9999;
     }
 
-    #gate-logo{
+    #gate-logo-wrap{
       position:absolute;
       top:23.6%;
       left:32.2%;
       transform: translate(-50%, -50%);
+    }
 
+    #gate-logo{
       width:400px;
       cursor:grab;
-      filter:
-        drop-shadow(0 0 40px rgba(100,255,0,.15))
-        brightness(.8);
-      transition: filter .3s;
-    }
-
-    #gate-logo{
-      user-select: none;
-      -webkit-user-drag: none;
-      touch-action: none;
-    }
-
-    #gate-logo:active{
-      cursor:grabbing;
-      filter:
-        drop-shadow(0 0 80px rgba(100,255,0,.35))
-        brightness(1);
-    }
-
-    #gate-text{
-      margin-top:20px;
-      font-size:.85rem;
-      letter-spacing:2px;
-      opacity:.6;
-      text-align:center;
-    }
-
-    #gate-logo{
+      user-select:none;
+      -webkit-user-drag:none;
+      touch-action:none;
       will-change: transform;
       transform: translateZ(0);
-    }
-
-/* ====== TRẠNG THÁI KHÓA ====== */
-    body{
-      transform: scale(2);
-      transition:
-        transform 10s ease,
-        filter 10s ease;
-    }
-
-    body.unlocked{
-      transform: scale(1);
     }
 
     /* bóng tối phủ */
@@ -260,12 +225,19 @@
       opacity:0;
     }
 
+    @media (max-width: 768px){
+      .noise{ opacity:0.02 }
+      h1{ animation:none }
+    }
+
   </style>
 </head>
 <body>
 
 <div id="gate">
-  <img id="gate-logo" src="favicon.png" alt="RadiΔ Gate">
+  <div id="gate-logo-wrap">
+    <img id="gate-logo" src="favicon.png" alt="RadiΔ Gate">
+  </div>
   <div id="gate-text">GIỮ & XOAY</div>
 </div>
 
@@ -350,7 +322,7 @@ function getAngle(e){
 // render bằng RAF → mượt
 function render(){
   totalRotation += (targetRotation - totalRotation) * 0.25; // inertia
-  logo.style.transform = `rotate(${totalRotation}deg)`;
+  logo.style.transform = `translateZ(0) rotate(${totalRotation}deg)`;
   requestAnimationFrame(render);
 }
 render();
