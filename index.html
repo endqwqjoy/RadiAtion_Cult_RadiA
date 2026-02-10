@@ -192,19 +192,25 @@
 
     #gate-logo-wrap{
       position:absolute;
-      top:23.6%;
-      left:32.2%;
+      top:40%;
+      left:50%;
       transform: translate(-50%, -50%);
     }
 
     #gate-logo{
-      width:400px;
+      width:200px;
       cursor:grab;
       user-select:none;
       -webkit-user-drag:none;
       touch-action:none;
       will-change: transform;
       transform: translateZ(0);
+    }
+
+    #gate-logo.unlocking{
+      transition: 
+        transform 1.8s ease,
+        filter 1.8s ease;
     }
 
     /* bóng tối phủ */
@@ -230,9 +236,24 @@
       h1{ animation:none }
     }
 
+    #gate-logo-wrap{
+      transition: transform 2s ease;
+      will-change: transform;
+    }
+
+    #scene{
+      transform-origin: center center;
+      transform: scale(1.8); /* 👈 BAN ĐẦU PHÓNG TO */
+      transition: transform 2s cubic-bezier(.1,.9,.2,1);
+      will-change: transform;
+    }
+
   </style>
 </head>
 <body>
+
+<div id="scene">
+  <!-- TẤT CẢ NỘI DUNG -->
 
 <div id="gate">
   <div id="gate-logo-wrap">
@@ -319,12 +340,15 @@ function getAngle(e){
   return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
 }
 
-// render bằng RAF → mượt
 function render(){
-  totalRotation += (targetRotation - totalRotation) * 0.25; // inertia
-  logo.style.transform = `translateZ(0) rotate(${totalRotation}deg)`;
+  totalRotation += (targetRotation - totalRotation) * 0.25;
+
+  // ✅ XOAY LOGO Ở ĐÂY
+  logo.style.transform = `rotate(${totalRotation}deg)`;
+
   requestAnimationFrame(render);
 }
+
 render();
 
 logo.addEventListener("pointerdown", e=>{
@@ -359,25 +383,47 @@ logo.addEventListener("pointerup", ()=>{
   dragging = false;
 });
 
+function render(){
+  totalRotation += (targetRotation - totalRotation) * 0.25;
+
+  // ✅ XOAY LOGO Ở ĐÂY
+  logo.style.transform = `rotate(${totalRotation}deg)`;
+
+  requestAnimationFrame(render);
+}
+
 function unlockGate(){
   if(unlocked) return;
   unlocked = true;
 
   document.body.classList.add("unlocked");
 
+  // ⛔ DỪNG xoay
+  dragging = false;
+
+  // 💥 ZOOM CAMERA (KHÔNG đụng logo)
+  const wrap = document.getElementById("gate-logo-wrap");
+  const scene = document.getElementById("scene");
+    scene.style.transform = "scale(1)";
+
+
+  // tăng glow cho đã
+  logo.style.filter =
+    "drop-shadow(0 0 100px rgba(100,255,0,1))";
+
+  // 🌑 fade gate
   gate.style.transition = "opacity 2s ease";
   gate.style.opacity = "0";
 
   setTimeout(()=>{
     gate.remove();
 
-    // 🎧 phát nhạc SAU khi mở – max volume
     gateAudio.volume = 1;
     gateAudio.play();
-
-  }, 2000);
+  }, 1800);
 }
 </script>
 
+</div>
 </body>
 </html>
