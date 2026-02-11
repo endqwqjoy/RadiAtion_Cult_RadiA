@@ -1,1110 +1,502 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Ωni Church</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8" />
+  <title>RadiA — Hub</title>
+  <link rel="icon" href="favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    .image-pair {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      margin: 40px 0;
+    :root{
+      --metal-dark:#1B2A35;
+      --metal-gray:#3C3940;
+      --metal-matte:#4C4E58;
+      --neon-main:#64FF00;
+      --neon-soft:#88FF00;
+      --neon-hard:#1DFF00;
+      --toxic:#00BA00;
+      --blood:#C4281C;
     }
 
-    @media (max-width: 800px) {
-      .image-pair {
-        grid-template-columns: 1fr;
-      }
-    }
+    *{box-sizing:border-box}
 
-    html {
-      font-size: 18px; /* kích thước gốc desktop */
-    }
-
-    body {
-      margin: 0;
-      font-family: "Times New Roman", serif;
-      background: #0e0f12;
-      color: #e6e6e6;
-
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-
-    header {
-      background: radial-gradient(circle at top, #1f2a1f, #060708);
-      padding: 80px 20px;
-      text-align: center;
-      border-bottom: 1px solid #2a3a2a;
-    }
-
-    header h1 {
-      color: #9dff9d;
-      margin-bottom: 10px;
-
-      font-size: 3rem;
-      letter-spacing: 2px;
-    }
-
-    header h2 {
-      font-weight: normal;
-      color: #b5b5b5;
-      font-size: 1.3rem;
-    }
-
-    section {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
-
-    h3 {
-      color: #8cffc1;
-      border-left: 1.6px solid #4cff9a;
-      padding-left: 14px;
-      margin-top: 70px;
-
-      font-size: 1.6rem;
-      letter-spacing: 0.5px;
-    }
-
-    h4 {
-      margin-top: 40px;
-      margin-bottom: 14px;
-
-      font-size: 1.3rem;
-      font-weight: normal;
-      letter-spacing: 1px;
-
-      color: #baffd9;
-
-      border-bottom: 1px dashed rgba(140,255,193,0.35);
-      padding-bottom: 6px;
-
-      text-shadow: 0 0 6px rgba(140,255,193,0.25);
-    }
-
-    .lore {
-      background: rgba(255,255,255,0.03);
-      padding: 30px;
-      border: 1px solid rgba(140,255,193,0.15);
-      box-shadow: inset 0 0 40px rgba(120,255,180,0.05);
-    }
-
-    .image-block {
-      margin: 40px 0;
-      text-align: center;
-    }
-
-    .image-block img {
-      max-width: 100%;
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 0 40px rgba(140,255,193,0.15);
-    }
-
-    .caption {
-      font-size: 1em;
-      color: #a8cfa8;
-      margin-top: 8px;
-      font-style: italic;
-    }
-
-    .two-column {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      border-top: 2px solid #2a3a2a;
-      color: #777;
-      font-size: 1em;
-    }
-
-    @media (max-width: 800px) {
-      .two-column {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .oni-voice {
-      border-left: 2px solid #7dffb2;
-      padding: 14px 20px;
-      margin: 36px 0;
-      color: #caffdf;
-      font-style: italic;
-      letter-spacing: 0.5px;
-      background: rgba(120, 255, 180, 0.06);
-      box-shadow: inset 0 0 20px rgba(120, 255, 180, 0.12);
-    }
-
-    .hero {
-      position: relative;
-    }
-
-    .hero-logo-link {
-      position: fixed;
-      right: 32px;
-     top: 300px;
-      z-index: 1000;
-      cursor: pointer;
-    }
-
-  .hero-logo-float {
-    position: fixed;
-    right: 32px;
-    top: 300px;
-    z-index: 1000;
-
-    will-change: transform;
-  }
-
-    .hero-logo-link:hover img {
-      filter: drop-shadow(0 0 22px #9affc2);
-    }
-
-    .hero-logo {
-      width: 100px;
-      opacity: 0.9;
-
-      filter: drop-shadow(0 0 14px #6cff9b);
-      transition: filter 0.3s ease;
-    }
-
-
-    .hero-logo {
-      animation: oni-beat 4.5s infinite;
-      transition: animation-duration 0.4s ease;
-    }
-
-    .hero-logo-link:hover .hero-logo {
-      animation: oni-beat 2.6s infinite;
-    }
-
-    @keyframes oni-beat {
-      0% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 10px #6cff9b);
-      }
-
-      8% {
-        transform: scale(1.28);
-        filter: drop-shadow(0 0 28px #9affc2);
-      }
-
-      12% {
-        transform: scale(1.15);
-        filter: drop-shadow(0 0 22px #7dffb2);
-      }
-
-      20% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 12px #6cff9b);
-      }
-
-      100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 12px #6cff9b);
-      }
-    }
-
-    /* 🌫️ GAS LAYER */
-    #gas-layer {
-      position: fixed;
-      inset: 0;
-      backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.02);
-      z-index: 9000;
-      transition: opacity 1.5s ease, backdrop-filter 1.5s ease;
-    }
-
-    /* ⛓️ GATE SCREEN */
-    #gate-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      pointer-events: none; /* quan trọng */
-    }
-
-    /* 🧱 PANEL */
-    .gate-panel {
-      position: absolute;
-      left: 50%;
-      top: -40%;
-      transform: translateX(-50%);
-
+    body{
+      margin:0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
       background:
-        linear-gradient(180deg,
-          rgba(15,25,18,0.98),
-          rgba(5,8,7,0.98));
-
-      border: 2px solid #3affc3;
-      padding: 46px 70px;
-      text-align: center;
-
-      box-shadow:
-        0 0 60px rgba(58,255,195,0.45),
-        0 0 120px rgba(58,255,195,0.25),
-        inset 0 0 40px rgba(0,0,0,0.9);
-
-      animation: elevatorDown 2.6s cubic-bezier(.22,.61,.36,1) forwards;
-      pointer-events: auto;
+        radial-gradient(circle at 50% 20%, rgba(100,255,0,0.15), transparent 40%),
+        linear-gradient(180deg, #050708, #000);
+      color:#d6ffd0;
+      overflow-x:hidden;
     }
 
-    .gate-panel::before {
-      content: "";
+    .noise{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      background-image:url('RΔ.png');
+      mix-blend-mode:overlay;
+      opacity:0.05;
+    }
+
+    header{
+      text-align:center;
+      padding:80px 20px 60px;
+    }
+
+    header img{
+      width:120px;
+      filter:drop-shadow(0 0 20px var(--neon-main));
+    }
+
+    h1{
+      margin:30px 0 10px;
+      font-size:3.8em;
+      letter-spacing:4px;
+      color:var(--neon-main);
+      text-shadow:0 0 20px rgba(100,255,0,.6);
+    }
+
+    .subtitle{
+      opacity:.8;
+      font-style:italic;
+    }
+
+    main{
+      max-width:1100px;
+      margin:auto;
+      padding:40px 20px 100px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:30px;
+    }
+
+    .node{
+      position:relative;
+      padding:30px 25px 35px;
+      background:
+        linear-gradient(145deg, rgba(76,78,88,.9), rgba(27,42,53,.9));
+      border:1px solid rgba(100,255,0,.25);
+      border-radius:18px;
+      text-decoration:none;
+      color:#eaffea;
+      transition:.35s ease;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.03),
+        0 0 25px rgba(0,0,0,.8);
+    }
+
+    .node::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:18px;
+      background:
+        linear-gradient(120deg, transparent 30%, rgba(100,255,0,.35), transparent 70%);
+      opacity:0;
+      transition:.35s;
+    }
+
+    .node:hover{
+      transform:translateY(-8px) scale(1.02);
+      box-shadow:0 0 40px rgba(100,255,0,.4);
+    }
+
+    .node:hover::before{opacity:1}
+
+    .node h2{
+      margin:0 0 10px;
+      font-size:1.6rem;
+      color:var(--neon-soft);
+      text-shadow:0 0 12px rgba(136,255,0,.5);
+    }
+
+    .node p{
+      margin:0;
+      opacity:.85;
+      line-height:1.5;
+      font-size:.95rem;
+    }
+
+    footer{
+      text-align:center;
+      padding:40px 20px;
+      font-size:.85rem;
+      opacity:.6;
+    }
+
+    /* Electro Swing / EDM pulse */
+    @keyframes pulse{
+      0%,100%{text-shadow:0 0 10px var(--neon-main)}
+      50%{text-shadow:0 0 30px var(--neon-main)}
+    }
+
+    h1{animation:pulse 3s infinite ease-in-out}
+
+    .radiant-text{
+      position: relative;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    /* VIỀN RADIANT – LỚP NGOÀI */
+    .radiant-text span::before{
+      content: attr(data-text);
       position: absolute;
-      inset: -18px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
 
-      border-radius: 6px;
+      color: transparent;
+
+      /* VIỀN DÀY – MỀM */
+      -webkit-text-stroke: 10px #1DFF00;
+
+      /* SƠN PHÓNG XẠ */
+      filter: blur(2.0px);
+
+      opacity: 0.9;
+    }
+
+    /* LÕI CHỮ */
+    .radiant-text span{
+      position: relative;
+      display: inline-block;   /* QUAN TRỌNG */
+      color: #C3FF00;
+    }
+
+    @keyframes radFog{
+      0%,100%{ opacity:.100 }
+      50%{ opacity:1 }
+    }
+
+    .radiant-text span::before{
+      animation: radFog 4.5s infinite ease-in-out;
+    }
+
+    .radiant-text{
+      filter: drop-shadow(0 0 25px rgba(100,255,0,.25));
+    }
+
+    #gate{
+      position:fixed;
+      inset:0;
+      background:radial-gradient(circle at center, #050708 0%, #000 70%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+    }
+
+    #gate-logo-wrap{
+      position:absolute;
+      top:40%;
+      left:50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #gate-logo{
+      width:200px;
+      cursor:grab;
+      user-select:none;
+      -webkit-user-drag:none;
+      touch-action:none;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    #gate-logo.unlocking{
+      transition: 
+        transform 1.8s ease,
+        filter 1.8s ease;
+    }
+
+    /* bóng tối phủ */
+    #gate::after{
+      content:"";
+      position:absolute;
+      inset:0;
       background:
         radial-gradient(circle at center,
-          rgba(58,255,195,0.35),
-          rgba(58,255,195,0.15) 40%,
-          transparent 70%);
-
-      animation: gate-pulse 4.8s infinite ease-in-out;
+          rgba(0,0,0,0) 0%,
+          rgba(0,0,0,.85) 65%,
+          rgba(0,0,0,1) 100%);
+      pointer-events:none;
+      transition: opacity 2.2s ease;
     }
 
-    @keyframes gate-pulse {
-      0%   { opacity: 0.4; transform: scale(0.96); }
-      50%  { opacity: 0.9; transform: scale(1.02); }
-      100% { opacity: 0.5; transform: scale(0.96); }
+    body.unlocked #gate::after{
+      opacity:0;
     }
 
-    /* 🛗 THANG MÁY ĐI XUỐNG */
-    @keyframes elevatorDown {
-      from {
-        top: -40%;
-      }
-      to {
-        top: 40%;
-      }
+    @media (max-width: 768px){
+      .noise{ opacity:0.02 }
+      h1{ animation:none }
     }
 
-    /* 🛗 THANG MÁY RỜI ĐI */
-    @keyframes elevatorExit {
-      0% {
-        top: 40%;
-        opacity: 1;
-      }
-      60% {
-        opacity: 0.8;
-      }
-      100% {
-        top: 130%;
-        opacity: 0;
+    #gate-logo-wrap{
+      transition: transform 2s ease;
+      will-change: transform;
+    }
+
+    #scene{
+      transform-origin: center center;
+      transform: scale(1.5); /* 👈 BAN ĐẦU PHÓNG TO */
+      transition: transform 4s cubic-bezier(.6,0,.4,1);
+      will-change: transform;
+    }
+
+    @media (max-width: 768px){
+      #scene{
+        transform: scale(1.0);
+        transition: transform 2.8s ease;
       }
     }
 
-    #enter-btn {
-      margin-top: 18px;
-      padding: 10px 26px;
-
-      font-family: "Times New Roman", serif;
-      font-size: 1.4em;
-      letter-spacing: 1px;
-
-      background: #0b1a14;
-      color: #caffdf;
-
-      border: 1px solid #7dffb2;
-      cursor: pointer;
-
-      box-shadow:
-        0 0 10px rgba(125,255,178,0.4),
-        inset 0 0 10px rgba(0,0,0,0.8);
-
-      transition: all 0.25s ease;
-    }
-
-    #enter-btn:hover {
-      background: #0f2a1e;
-      box-shadow:
-        0 0 18px rgba(125,255,178,0.9),
-        0 0 36px rgba(125,255,178,0.6);
-    }
-
-    @media (max-width: 1024px){
-      html {
-        font-size: 17px;
+    @media (max-width: 768px){
+      #scene{
+        transition: transform 3.2s cubic-bezier(.4,0,.2,1);
       }
     }
 
-    @media (max-width: 800px){
-      html {
-        font-size: 16px;
+    @media (max-width: 768px){
+
+      .radiant-text span::before{
+        -webkit-text-stroke: 5px #1DFF00;
+        filter: blur(1px);
       }
+
+      .radiant-text{
+        filter: drop-shadow(0 0 12px rgba(100,255,0,.3));
+      }
+
     }
 
-    @media (max-width: 480px){
-      html {
-        font-size: 15px;
-      }
+    .radiant-text{
+      line-height: 1.05;
     }
 
   </style>
 </head>
-
 <body>
 
-<div id="gas-layer"></div>
+<div id="scene">
+  <!-- TẤT CẢ NỘI DUNG -->
 
-<div id="gate-screen">
-  <div class="chain left"></div>
-  <div class="chain right"></div>
-
-  <div class="gate-panel">
-    <div class="gate-title">ĐIỂM LƯU HẦM MỎ ΩXY</div>
-    
-    <button id="enter-btn">⛏️ LỌC KHÍ</button>
+<div id="gate">
+  <div id="gate-logo-wrap">
+    <img id="gate-logo" src="favicon.png" alt="RadiΔ Gate">
   </div>
+  <div id="gate-text">GIỮ & XOAY</div>
 </div>
 
-<header class="hero">
-  <h1>Nhà thờ Ωni</h1>
-  <h2>Nhánh thứ II của Phóng xạ Giáo RadiA</h2>
+<audio id="gate-audio" src="gate.mp3" preload="auto"></audio>
+<audio id="bg-music" src="fluorescent-light.mp3" loop preload="auto"></audio>
 
-  <a href="#top" class="hero-logo-link">
-    <div class="hero-logo-float">
-      <img src="favicon.png" alt="Ωni Logo" class="hero-logo">
-    </div>
-  </a>
+<audio id="hover-1" src="hover-1.mp3" preload="auto"></audio>
+<audio id="hover-2" src="hover-2.mp3" preload="auto"></audio>
+<audio id="hover-3" src="hover-3.mp3" preload="auto"></audio>
+<audio id="hover-4" src="hover-4.mp3" preload="auto"></audio>
+<audio id="hover-5" src="hover-5.mp3" preload="auto"></audio>
+<audio id="hover-6" src="hover-6.mp3" preload="auto"></audio>
 
+<div class="noise"></div>
+
+<header>
+  <img src="favicon.png" alt="RadiA" />
+  <h1 class="radiant-text">
+  <span data-text="Su Su Bell Bell!">Su Su Bell Bell!</span>
+  </h1>
+  <div class="subtitle">Steampunk · Teslapunk · Biopunk · Apunkalypse</div>
 </header>
 
-<section class="lore">
-  <h3>I. Khởi nguyên</h3>
-    <h4>Trước <b>NGÀY THANH RỪNG</b>:</h4>
-    <p>
-      <b>⛏ Khu Mỏ Ωxy</b> - Một khu mỏ đâm thẳng qua <b>Dãy Núi Ngọc Trai</b>; Một hành lang Đông-Tây {Đô thị Hellio - Xí nghiệp βoro}
-      chính là nơi con người khai thác quặng, than đá, đá quý; Đặc biệt là một loại thạch anh lạ có kết cấu như <i>Ngọc trai 🥚</i>.
-    </p>
-    <p>
-      Một tuyến đường sắt đi giữa lòng núi, với một chiếc xe lửa... máy khoan khổng lồ, <b>Ωxy Gem</b> - Mang hình dáng là một đoàn tàu hơi nước gắn với một chiếc máy khoan khổng lồ, thứ đã từng đâm xuyên qua da thịt của thiên nhiên.<br>
-      Cỗ máy ấy là niềm tự hào của thời đại hơi nước chuyển mình sang điện — nặng nề, ồn ào, nhưng được tin là không gì cản nổi.
-      Giờ đây, nó giúp vận chuyển hàng hóa gồm <del>con người</del>.
-    </p>
-    <p>
-      Ca làm hôm đó có hơn ba mươi người.
-    </p>
-    <p>
-      Đội trưởng là <b>Harrick Vale</b>,<br>
-      thợ máy chính <b>Olen Kross</b>,<br>
-      những công nhân đào hầm như <b>Bram</b>, <b>Yusef</b>, <b>Linh</b>, <b>Marrow</b>,<br>
-      và một thợ mỏ lực lưỡng, nổi tiếng khỏe nhất đội: <b>Ishren</b>.
-    </p><br>
-    <hr><br>
-    <h4><b>NGÀY THANH RỪNG</b>:</h4>
-    <p>
-      Mặt đất bên ngoài tràn ngập <b>Virus RΔ</b>.<br>
-      Cây cối mọc điên loạn. Không khí trở thành thứ giết người.
-    </p>
-    <p>
-      Không có đường thoát.
-    </p>
-    <p>
-      Họ buộc phải <b>làm sập cửa hầm</b>, chôn chính mình lại để ngăn virus tràn vào.<br>
-      Hy vọng duy nhất là <b>Ωxy Gem</b> — nếu nó hoạt động, họ có thể đào một lối đi khác.
-    </p>
-    <p>
-      Nhưng Ωxy Gem <b>không nhúc nhích</b>.
-    </p>
-    <p>
-      Hơi nước cạn dần.<br>
-      Điện chập chờn.<br>
-      Ngày trôi qua không phân biệt được với đêm.
-    </p>
-    <p>
-      Dù tuyệt vọng, họ vẫn <b>cầm cuốc chim</b>, <br>
-      đào bằng tay, bằng máu, bằng ý chí còn sót lại.
-    </p>
-    <p>
-      Cho đến khi <b>Ishren</b> đào trúng thứ gì đó.
-    </p>
-    <p>
-      Không phải đá.<br>
-      Không phải kim loại.
-    </p>
-    <p>
-      Một bề mặt <b>nhẵn</b>, <b>lạnh</b>, <b>óng ánh ✨</b>.
-    </p>
-    <p>
-      Họ đào rộng ra… và nhìn thấy nó:<br>
-      <b>một khối ngọc trai khổng lồ</b>,<br>
-      to như một căn phòng nhỏ,<br>
-      trông <b>giống hệt một quả trứng 🥚</b>.
-    </p>
-    <p>
-      Không khí trong hầm trở nên nặng mùi kim loại.
-    </p>
-    <p>
-      Rồi —<br>
-      <b>vết nứt xuất hiện</b>.
-    </p>
-    <p>
-      Một tiếng rắc khô khốc vang lên.
-    </p>
-    <p>
-      Quả trứng <b>nứt toác</b>.<br>
-      Chất lỏng <b>xanh lục</b> trào ra,<br>
-      kèm theo <b>một luồng ánh sáng chói lòa</b>.
-    </p>
-    <p>
-      Không ai kịp hét.
-    </p>
-</section>
+<main>
+  <section class="grid">
 
-<section>
-  <h3>II. TΩxy Gem – Thần Hai Mắt</h3>
-    <h4><b>⏳ MỘT THẾ KỈ SAU</b>:</h4>
-    <p>
-      Sự im lặng kéo dài trăm năm.
-    </p>
-    <p>
-      Trong lòng Khu Mỏ Ωxy, tầng Ⅱ.<br>
-      những <b>tượng ngọc trai hình người</b> đứng san sát,<br>
-      tất cả đều mang <b>hình dáng phụ nữ</b>,<br>
-      đông cứng trong tư thế quỳ, đứng, hoặc dang tay như cầu nguyện.
-    </p>
-    <p>
-      Rồi <b>một tượng nứt ra</b>.<br>
-      <b>Rắc.</b>
-    </p>
-    <p>
-      Một <b>cô gái trần trụi</b> bước ra,<br>
-      da còn ánh xà cừ, chi như ốc sên,<br>
-      mắt chưa quen với bóng tối.
-    </p>
-    <p>
-      Cô nhớ…<br>
-      một ký ức lạc lõng:
-    </p>
-      <div class="oni-voice">
-        “Mình từng có vai rộng.<br>
-        Cơ bắp.<br>
-        Một cơ thể của thợ mỏ.”
-      </div>
-    <p>
-      Trước mặt cô là <b>Ωxy Gem</b> —<br>
-      nhưng không còn là máy móc.
-    </p>
-    <p>
-      Nó đã trở thành <b>một con quái thú</b>:<br>
-      như <b>ốc mượn hồn</b>,<br>
-      đầu mang sừng <b>trâu</b>,<br>
-      vỏ chính là thân máy khoan khổng lồ năm xưa.
-    </p>
-    <p>
-      Nó <b>bất động</b>.<br>
-      Như một xác chết công nghiệp,<br>
-      một con ốc mượn hồn nhưng<br>
-      <del>không có</del> hồn.<br>
-      <b>Chưa có*</b>
-    </p>
-    <p>
-      Khi cô tiến lại gần—
-    </p>
-    <p>
-      <b>Hai con mắt bật sáng</b>.<br>
-      Ánh <b>xanh lục độc địa</b> xuyên qua bóng tối.
-    </p>
-    <p>
-      Những <b>sợi xích</b> văng ra từ miệng nó,<br>
-      quấn lấy tay, thân thể cô,<br>
-      kéo giật cô vào bên trong cỗ máy.
-    </p>
-    <p>
-      Khi tỉnh lại,<br>
-      cô đang ở <b>💠 Lõi Băng</b>,<br>
-      trái tim, nguồn năng lượng,<br>
-      vì nó tỏa ra lửa void...<br>
-      Rất lạnh.
-    </p>
-      <div class="oni-voice">
-        Mình đang ở... Lõi... Băng?
-      </div>
-    <p>
-      Tay chân bị <b>xích trói chặt</b>,<br>
-      cơ thể treo lơ lửng như một bộ phận thay thế.
-    </p>
-    <p>
-      Cô vùng vẫy.
-    </p>
-    <p>
-      Rồi—
-    </p>
-    <p>
-      <b>MỘT RUNG ĐỘNG LỚN</b>.
-    </p>
-    <p>
-      Cỗ máy <b>chuyển động</b>.
-    </p>
-    <p>
-      Không phải cô điều khiển nó.<br>
-      Mà là nó <b>mượn cô để sống</b>.
-    </p>
-    <p>
-      Cô giống như<br>
-      một kẻ bị mượn hồn bởi ốc mượn hồn.
-    </p>
-    <p>
-      Cơn đói ập đến.
-      Dạ dày cô <b>réo lên</b>.<br>
-    </p>
-    <p>
-      Cỗ máy nghe thấy.
-    </p>
-    <p>
-      Như một mệnh lệnh sinh tồn,
-      nó bắt đầu nuốt <b>kim loại</b>,<br>
-      <b>ngọc</b>, <b>đá quý</b><br>
-      <b>vàng</b>, <b>mọi thứ!</b><br>
-      bất cứ thứ gì còn sót lại trong hầm mỏ.
-    </p>
-    <p>
-      Tất cả được nghiền nát,
-      chuyển hóa thành <b>dung dịch xanh lục</b>
-      chảy vào Lõi băng.
-    </p>
-    <p>
-      Cô uống chúng.
-    </p>
-    <p>
-      Và nhận ra:
-    </p>
-      <div class="oni-voice">
-        <b>Thứ càng đẹp</b>.<br>
-        <b>Càng hiếm</b>.<br>
-        <b>Dung dịch ấy càng ngon</b>.<br>
-        <b>Càng dễ nuốt</b>.
-      </div>
-    <p>
-      Trong bóng tối của ⛏ Khu mỏ Ωxy,<br>
-      <b>TOXY GEM</b> đã ra đời
-    </p>
+    <a class="node" href="#">
+      <h2>Helliα City</h2>
+      <p>Gốc — NGÀY THANH RỪNG. ???, Dây leo, ống dẫn, tàn tích.</p>
+    </a>
 
-    <div class="image-pair" id="toxy-zone">
+    <a class="node" href="#">
+      <h2>RadiΔ Bunker</h2>
+      <p>Thân — RadiΔ. Virus RΔ, thí nghiệm, nhân tạo thần.</p>
+    </a>
 
-      <div class="image-block">
-        <img src="TΩxy Gem.png" alt="TΩxy Gem">
-        <div class="caption">
-          TΩxy Gem {Nhà thờ Ωni} - Trong Khu mỏ Ωxy, tầng Ⅱ
-        </div>
-      </div>
+    <a class="node" href="#">
+      <h2>βoros Industry</h2>
+      <p>Nhánh I — Xí nghiệp βoros. βoros Sion, công nhân βoros, acid Rβ.</p>
+    </a>
 
-      <div class="image-block">
-        <img src="TΩxy Gem {Sketch}.png" alt="TΩxy Gem Sketch">
-        <div class="caption">
-          TΩxy Gem {Nhà thờ Ωni} - Trong Khu mỏ Ωxy, tầng Ⅱ {Phác thảo}
-        </div>
-      </div>
+    <a class="node" href="Omega-ni_Church/index.html">
+      <h2>Ωni Church</h2>
+      <p>Nhánh II — Hầm mỏ Ωxy. TΩxy Gem – Nhà thờ Ωni, chị em RΩ.</p>
+    </a>
 
-    </div>
+    <a class="node" href="#">
+      <h2>φhosφhor φort</h2>
+      <p>Nhánh III — Cảng φhosφhor. Neko Mean, ???.</p>
+    </a>
 
-    <h4><b>⏳ SAU KHI CỖ MÁY THỨC TỈNH</b>:</h4>
-    <p>
-      Trong bóng tối của <b>⛏ Khu Mỏ Ωxy</b>,<br>
-      khi cơn đói đã dịu lại,<br>
-      TΩxy Gem chợt nhớ đến những thứ đã đứng đó từ rất lâu.
-    </p>
-    <p>
-      Những <b>tượng ngọc trai hình phụ nữ</b>.
-    </p>
-    <p>
-      Chúng đứng san sát trong các hốc đá,<br>
-      xà cừ phủ kín thân thể,<br>
-      đông cứng trong tư thế quỳ, đứng, dang tay—<br>
-      như đang cầu nguyện một thứ chưa từng tồn tại.
-    </p>
-      <div class="oni-voice">
-        “…Chúng là gì?”.<br>
-        “…Vô tri?”.<br>
-        “…Hay là… thức ăn?”
-      </div>
-    <p>
-      Một tượng bị kéo lên bằng những sợi xích.<br>
-      Bị nghiền nát giữa những hàm thép.
-    </p>
-    <p>
-      <b>— RẮC</b>.
-    </p>
-    <p>
-      Không phải âm thanh vỡ vụn.
-    </p>
-    <p>
-      Mà là <b>âm thanh của một thứ đang nở ra</b>.
-    </p>
-    <p>
-      Xà cừ tách lớp.<br>
-      Ngọc trai vỡ như kén.
-    </p>
-    <p>
-      Từ trong đó,<br>
-      một <b>cô gái sên khác</b> trượt ra, run rẩy, trần trụi,<br>
-      da còn ánh xà cừ ướt lạnh.
-    </p>
-    <p>
-      Cô hít một hơi đầu tiên.<br>
-      Rồi thở ra—<br>
-      như vừa được sinh ra từ đá.
-    </p>
-    <p>
-      TΩxy Gem khựng lại.
-    </p>
-    <p>
-      <b>— RẮC. RẮC. RẮC.</b>
-    </p>
-    <p>
-      Đồng loạt.<br>
-      Tất cả những tượng còn lại <b>đều nứt ra</b>.
-    </p>
-    <p>
-      Những cô gái sên khác lần lượt bước ra khỏi vỏ ngọc,<br>
-      ánh mắt trống rỗng,<br>
-      ký ức bị xóa sạch như hầm mỏ bị nổ sập.
-    </p>
-    <p>
-      Họ nhìn thấy TΩxy Gem.<br>
-      Và <b>bám lấy cô</b>.
-    </p>
-    <p>
-      Như hà bám thân tàu.
-      Như con gà bám mẹ.
-    </p>
-      <div class="oni-voice">
-        "Mẹ..."
-      </div>
-    <p>
-      Một giọng nói khò khè vang lên.<br>
-      Rồi giọng khác.<br>
-      Rồi tất cả.
-    </p>
-      <div class="oni-voice">
-        “Mẹ.”<br>
-        “Mẹ ơi.”<br>
-        “Mẹ ở đây.”
-      </div>
-    <p>
-      TΩxy Gem chết lặng.
-    </p>
-      <div class="oni-voice">
-        “…Mẹ?”<br>
-        "Hả…"<br>
-        “…Khoan đã.”
-      </div>
-    <p>
-      Cô chưa từng là mẹ.
-      Cô thậm chí <b>chưa kịp làm người</b>.
-    </p>
-    <p>
-      Những cơ thể mềm, lạnh, trượt quanh lớp giáp kim loại.<br>
-      Những ánh mắt ngước lên—không phán xét, không sợ hãi.
-    </p>
-    <p>
-      Chỉ có <b>phụ thuộc</b>.
-    </p>
-    <p>
-      TΩxy Gem cảm thấy một cảm giác lạ.<br>
-      Không phải đói.<br>
-      Không phải lạnh.
-    </p>
-      <div class="oni-voice">
-        …Kì.<br>
-        …Rất kì.
-      </div>
-    <p>
-      Cô quay đi.
-    </p>
-      <div class="oni-voice">
-        “Này—”<br>
-        “Mặc… đồ… vào!”
-      </div>
-    <p>
-      Những cô gái nhìn nhau.
-      Một khoảng im lặng dài trong hầm mỏ.
-    </p>
-    <p>
-      TΩxy Gem thở ra một làn khí lạnh từ lõi.
-    </p>
-      <div class="oni-voice">
-        “Là… che lại!”<br>
-        “Không cần phải… như vậy!”
-      </div>
-    <p>
-      Họ không hiểu.
-      Nhưng họ <b>nghe lời</b>.
-    </p>
-    <p>
-      Họ gom mọi thứ có thể tìm được:<br>
-      kim loại vụn, vải mục, dây cáp, xương, mảnh máy.
-    </p>
-    <p>
-      Chất độc tiết ra từ cơ thể họ lan lên bề mặt.<br>
-      Mọi thứ <b>mềm ra</b>.<br>
-      Tan chảy.<br>
-      Bị <b>xà cừ hóa</b>.
-    </p>
-    <p>
-      Chỉ trong thời gian ngắn,<br>
-      những bộ trang phục lọng lẫy, thô ráp, dị dạng ra đời—<br>
-      lấp lánh dưới ánh sáng độc địa của hầm mỏ.
-    </p>
-    <p>
-      TΩxy Gem nhìn họ, thở phào.
-    </p>
-      <div class="oni-voice">
-        …Ít nhất thì… tốt hơn rồi.
-      </div>
-    <p>
-      Cô nhận ra một vấn đề khác.
-    </p>
-      <div class="oni-voice">
-        …Tên.<br>
-        Các con… không có tên… à…?.
-      </div>
-    <p>
-      TΩxy Gem trầm ngâm hồi lâu.<br>
-      Rồi cô bắt đầu <b>đặt tên</b> cho từng đứa.
-    </p>
-      <div class="oni-voice">
-        “Em… là <b>Quartz</b>.”<br>
-        “Em kia… <b>Pyrite</b>.”<br>
-        “Còn em… <b>Malachite</b>.”<br>
-        “Azurite.”<br>
-        “Galena.”<br>
-        “Opal.”
-      </div>
-    <p>
-      Những cái tên khoáng sản vang lên trong hầm mỏ,<br>
-      được ghi nhớ như <b>lời khai sinh</b>.
-    </p>
-    <p>
-      Họ mỉm cười.<br>
-      Lần đầu tiên.
-    </p>
-      <div class="oni-voice">
-        “Cảm ơn, thưa Mẹ.”
-      </div>
-    <p>
-      TΩxy Gem không đáp,<br>
-      cô chưa quen.
-    </p>
-</section>
+    <a class="node" href="#">
+      <h2>Σane Farm</h2>
+      <p>Nhánh IV — Trang tại Σane. Deer Σeer, ???.</p>
+    </a>
 
-<section id="sister-zone">
-  <h3>III. Sister RΩ – Các Địa thần của Hầm mỏ Ωxy</h3>
-
-  <div class="two-column">
-    <div class="image-block">
-      <img src="Sister RΩ.png" alt="Sister RΩ">
-      <div class="caption">Chị em RΩ - Đào tổ kiến cho RadiA</div>
-    </div>
-
-    <div class="image-block">
-      <img src="Sister RΩ {Sketch}.png" alt="Sister RΩ Sketch">
-      <div class="caption">Chị em RΩ {Phát thảo}</div>
-    </div>
-  </div>
-</section>
-
-<section>
-    <h4>⛏ LUẬT SINH TỒN CỦA SISTER RΩ</h4>
-    <p>
-      Họ không sinh sản như sinh vật khác.
-    </p>
-    <p>
-      Khi một kẻ bị bắt,<br>
-      khi <b>chất độc xà cừ</b> bao phủ toàn thân.
-    </p>
-    <p>
-      Họ sẽ bị hóa thành<br>
-      <b>tượng/trứng/kén thạch anh hình người.</b>
-    </p>
-    <p>
-      Và từ đó—
-      một <b>Sister RΩ</b> mới sẽ nở ra.
-    </p>
-    <p>
-      Nhưng nếu người đó mang sát khí của<br>
-      kẻ sát sinh, tội lỗi mà không hè hối lỗi.<br>
-      Mà còn đang trong kén.
-    </p>
-    <p>
-      Họ sẽ được coi là<br>
-      <b>Thức ăn</b>
-    </p>
-    <p>
-      TΩxy Gem sẽ nhìn tượng ấy rất lâu.<br>
-      Cô <b>phán sét</b>.
-    </p>
-    <p>
-      Rồi cỗ máy sẽ mở hàm.<br>
-      Những sợ xích tứa ra.
-    </p>
-    <p>
-      Kéo kẻ đó về đúng với "Thiên đường".
-    </p>
-</section>
-
-  <section class="lore">
-    <h3>— Hồ sơ Sister RΩ —</h3>
-
-    <h4>🜂 Ngoại hình</h4>
-    <ul>
-      <li>🜁 Tóc: Bạch kim.</li>
-      <li>🦷 Răng: 77480 Chiếc.</li>
-      <li>🟢 Mắt: Xanh phát sáng.</li>
-      <li>🦪 Da: ánh xà cừ, mềm và trơn.</li>
-      <li>♀ Thân trên: Phụ nữ.</li>
-      <li>🐌 Thân dưới: Sên.</li>
-    </ul>
-
-    <h4>🧵 Trang phục</h4>
-    <ul>
-      <li>🔥 Phong cách: Thợ mỏ + hở {Tránh sức nóng từ Hầm mỏ Ωxy, tầng Ⅳ trở đi}.</li>
-      <li>⛓️ Vật liệu: Ngọc thạch - những khoáng sản bị xà cừ hóa.</li>
-      <li>🜃 Phụ kiện: Mũ thợ mỏ - Bóng đèn bằng ngọc trai giúp xác định ánh sáng yếu.</li>
-    </ul>
-
-    <h4>⛏️ Trang bị</h4>
-    <ul>
-      <li>⚒️ Cận chiến: Cúp, xẻng, búa tạ, máy khoan tự chế.</li>
-      <li>💣 Tầm xa: Súng phóng lựu tự chế.</li>
-      <li>🧨 Phụ trợ: TNT, Thuốc nổ tự chế.</li>
-    </ul>
-
-    <h4>🧬 Khả năng</h4>
-    <ul>
-      <li>👁️ "Thấu cảm" - Thấy được sinh lực.</li>
-      <li>🛡️ "Thanh tẩy" - Kháng độc, khí gas.</li>
-      <li>🦠 "Trầm địa" - Dùng độc hóa xà cừ sinh vật và đồ vật.</li>
-    </ul>
-
-    <h4>⚙️ Tính cách</h4>
-    <ul>
-      <li>🍽️ Thức ăn: Khoáng sản.</li>
-      <li>🗣️ Giao tiếp: thân thiện.</li>
-      <li>⚠️ Tập quán: Hóa xà cừ một người rồi biến họ thành con mình.</li>
-    </ul>
   </section>
-
-<section class="lore">
-  <h3>IV. Nhà thờ Thép & Nghĩa Trang</h3>
-    <h4>Nhà thờ Ωni <b>~100 năm</b>:</h4>
-    <p>
-      TΩxy Gem và Sister RΩ <u>chưa bao giờ được gọi</u>.<br>
-    </p>
-    <h4>Nhà thờ <b>Ωni ~150 năm</b>:</h4>
-    <p>
-      <b>Sự trở lại của Phóng xạ Giáo RadiA</b> đã mở ra chương mới.
-    </p>
-    <p>
-      RadiA kêu gọi những "con người"<br>
-      từ khắp nơi trong lãnh thổ của Thành phố Hellio—<br>
-      Hiện tại là Thành phố Treo.<br>
-    </p>
-    <p>
-      <b>Khu mỏ Ωxy là nơi được kêu gọi đầu tiên</b>,<br>
-      vì là nơi khá gần và<br>
-      là nơi để họ thẳng tiến qua <b>Khu Xí nghiệp βoro</b><br>
-      một cách <b>nhanh chống</b>.
-    </p>
-    <p>
-      Ban đầu họ <b>bắt giữ</b> khá nhiều con tin,<br>
-      nhưng cũng dần <b>được cảm hóa</b>.
-    </p>
-    <p>
-      Vì là những thợ mỏ chuyên nghiệp.
-    <p>
-      RadiA nhờ họ xây cho mình một nơi rộng rãi,<br>
-      có thể sinh sống.<br>
-    <p>
-      Đổi lại… là<br>
-      con người, đá quý, vàng bạc, trang sức…
-    </p>
-    <p>
-      Nhờ thế <b>Tổ kiến RadiA ra đời</b>.
-    <p>
-      <b>RadiA gọi Cô là TΩxy Gem</b>—<br>
-      bắt nguồn từ <b>máy khoan Ωxy</b><br>
-      và <b>chất độc của Cô</b>.
-    </p>
-    <p>
-      Sau này được tôn thờ và gọi là <b>Nhà thờ Ωni</b>.
-    </p>
-    <p>
-      TΩxy Gem từ đó,<br>
-      Cô đã <b>đặt tên</b> cho nhóm các đứa con mình—<br>
-      là <b>Sister RΩ</b> hay <b>Địa thần</b>.
-    </p>
-</section>
+</main>
 
 <footer>
-  Phóng xạ Giáo RadiA – Nhánh II: Nhà thờ Ωni<br>
+  © RadiA — Su Su Bell Bell
 </footer>
 
-<!-- 🔊 SOUND EFFECTS -->
-<audio id="oni-heartbeat" src="oni_heartbeat.mp3" loop></audio>
-<audio id="mine-ambient" src="mine_ambient.mp3"></audio>
-<audio id="pickaxe-sound" src="pickaxe-hit.mp3" preload="auto"></audio>
-
 <script>
-  const ambientSound = document.getElementById('mine-ambient');
+const logo = document.getElementById("gate-logo");
+const gate = document.getElementById("gate");
+const gateAudio = document.getElementById("gate-audio");
 
-  const zones = [
-    document.getElementById('toxy-zone'),
-    document.getElementById('sister-zone')
-  ];
+let dragging = false;
+let lastAngle = 0;
+let totalRotation = 0;
+let targetRotation = 0;
+let unlocked = false;
 
-  ambientSound.volume = 0.6;
-  ambientSound.loop = true;
+// cache tâm logo (KHÔNG reflow liên tục)
+let cx = 0, cy = 0;
 
-  const activeZoneSet = new Set();
-  let isPlaying = false;
+function updateCenter(){
+  const r = logo.getBoundingClientRect();
+  cx = r.left + r.width / 2;
+  cy = r.top + r.height / 2;
+}
+updateCenter();
+window.addEventListener("resize", updateCenter);
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          activeZoneSet.add(entry.target);
-        } else {
-          activeZoneSet.delete(entry.target);
-        }
-      });
+function getAngle(e){
+  return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+}
 
-      if (activeZoneSet.size > 0 && !isPlaying) {
-        ambientSound.currentTime = 0;
-        ambientSound.play().catch(() => {});
-        isPlaying = true;
-      }
+render();
 
-      if (activeZoneSet.size === 0 && isPlaying) {
-        ambientSound.pause();
-        ambientSound.currentTime = 0;
-        isPlaying = false;
-      }
-    },
-    {
-      threshold: 0.35
-    }
-  );
+logo.addEventListener("pointerdown", e=>{
+  if(unlocked) return;
+  dragging = true;
+  lastAngle = getAngle(e);
+  logo.setPointerCapture(e.pointerId);
+});
 
-  zones.forEach(zone => observer.observe(zone));
-</script>
+logo.addEventListener("pointermove", e=>{
+  if(!dragging || unlocked) return;
 
-<script>
-  const float = document.querySelector('.hero-logo-float');
+  const angle = getAngle(e);
+  let delta = angle - lastAngle;
 
-  let currentY = -77480;
-  let targetY = -50;
+  if(delta < -180) delta += 360;
+  if(delta > 180) delta -= 360;
 
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    targetY = -50 + scrollY * 0.01;
-  });
-
-  function animate() {
-    currentY += (targetY - currentY) * 0.12;
-    float.style.transform = `translateY(${currentY}px)`;
-    requestAnimationFrame(animate);
+  // chỉ cho xoay 1 chiều
+  if(delta > 0){
+    targetRotation += delta * 0.9; // sức nặng
   }
 
-  animate();
+  lastAngle = angle;
 
-</script>
-
-<script>
-  const logo = document.querySelector('.hero-logo');
-
-  let currentBeat = 1.0;
-  let targetBeat = 1.0;
-
-  const minBeat = 1.0;   // trên cao: 60 BPM
-  const maxBeat = 0.44;  // dưới sâu: ~135 BPM
-
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const docHeight = document.body.scrollHeight - window.innerHeight;
-    const ratio = Math.min(scrollY / docHeight, 1);
-
-    targetBeat = minBeat - (minBeat - maxBeat) * ratio;
-  });
-
-  function heartbeat() {
-    // tim "đuổi theo" mục tiêu, không nhảy cóc
-    currentBeat += (targetBeat - currentBeat) * 0.05;
-
-    logo.style.animationDuration = currentBeat.toFixed(2) + 's';
-
-    requestAnimationFrame(heartbeat);
+  if(targetRotation >= 6 * 360){
+    unlockGate();
   }
+});
 
-  heartbeat();
-</script>
+logo.addEventListener("pointerup", ()=>{
+  dragging = false;
+});
 
-<script>
-  // DÙNG LẠI BIẾN – KHÔNG KHAI BÁO LẠI
-  const heartbeatSound = document.getElementById('oni-heartbeat');
+function render(){
+  totalRotation += (targetRotation - totalRotation) * 0.25;
 
-  heartbeatSound.volume = 1.0;
+  // ✅ XOAY LOGO Ở ĐÂY
+  logo.style.transform = `rotate(${totalRotation}deg)`;
 
-  let audioUnlocked = false;
+  requestAnimationFrame(render);
+}
 
-  logo.addEventListener('mouseenter', () => {
-    // 🔓 Unlock audio (bypass autoplay restriction)
-    if (!audioUnlocked) {
-      ambientSound.play().catch(() => {});
-      ambientSound.pause();
-      audioUnlocked = true;
+function unlockGate(){
+  if(unlocked) return;
+  unlocked = true;
+
+  document.body.classList.add("unlocked");
+  dragging = false;
+
+  const scene = document.getElementById("scene");
+  scene.style.transform = "scale(1.0)";
+
+  logo.style.filter =
+    "drop-shadow(0 0 100px rgba(100,255,0,1))";
+
+  gate.style.transition = "opacity 2s ease";
+  gate.style.opacity = "0";
+
+  // 🔊 SOUND GATE
+  gateAudio.currentTime = 0;
+  gateAudio.play().catch(err => console.log(err));
+
+  // 🔊 ĐÈN HUỲNH QUANG FADE IN
+  const bgMusic = document.getElementById("bg-music");
+
+  bgMusic.volume = 0; // bắt đầu từ 0
+  bgMusic.play().catch(err => console.log(err));
+
+  let targetVolume = 0.24;
+  let fadeSpeed = 0.004; // chỉnh tốc độ tại đây
+
+  let fadeInterval = setInterval(()=>{
+    if(bgMusic.volume < targetVolume){
+      bgMusic.volume = Math.min(bgMusic.volume + fadeSpeed, targetVolume);
+    } else {
+      clearInterval(fadeInterval);
     }
+  }, 80); // càng nhỏ càng mượt
 
-    // ❤️ Heartbeat
-    heartbeatSound.currentTime = 0;
-    heartbeatSound.play();
+  setTimeout(()=>{
+    gate.remove();
+  }, 1800);
+}
+
+// 🔊 HOVER SOUND SYSTEM
+const nodes = document.querySelectorAll(".node");
+
+nodes.forEach((node, index) => {
+
+  const sound = document.getElementById(`hover-${index+1}`);
+
+  if(!sound) return;
+
+  node.addEventListener("mouseenter", () => {
+
+    if(!unlocked) return;
+
+    sound.currentTime = 0;
+    sound.volume = 0.6;
+    sound.play().catch(()=>{});
+
   });
 
-  logo.addEventListener('mouseleave', () => {
-    heartbeatSound.pause();
+  node.addEventListener("mouseleave", () => {
+
+    sound.pause();
+    sound.currentTime = 0;
+
   });
+
+});
 </script>
 
-<script>
-  const gate = document.getElementById('gate-screen');
-  const gas = document.getElementById('gas-layer');
-  const panel = document.querySelector('.gate-panel');
-  const enterBtn = document.getElementById('enter-btn');
-
-  enterBtn.addEventListener('click', () => {
-    // 🛗 panel đi xuống tiếp
-    panel.style.animation = 'elevatorExit 2.2s cubic-bezier(.22,.61,.36,1) forwards';
-
-    // 🌫️ lọc khí xong
-    gas.style.opacity = '0';
-    gas.style.backdropFilter = 'blur(0px)';
-
-    setTimeout(() => {
-      gate.remove();
-      gas.remove();
-    }, 2200);
-  });
-</script>
-
-<script>
-  const pickaxe = document.getElementById('pickaxe-sound');
-  pickaxe.volume = 1.0;
-
-  document.addEventListener('click', () => {
-    pickaxe.currentTime = 0;
-    pickaxe.play().catch(() => {});
-  });
-</script>
-
+</div>
 </body>
 </html>
