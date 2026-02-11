@@ -276,7 +276,14 @@
 </div>
 
 <audio id="gate-audio" src="gate.mp3" preload="auto"></audio>
-<audio id="bg-music" src="radio.mp3" loop preload="auto"></audio>
+<audio id="bg-music" src="fluorescent-light.mp3" loop preload="auto"></audio>
+
+<audio id="hover-1" src="hover-1.mp3" preload="auto"></audio>
+<audio id="hover-2" src="hover-2.mp3" preload="auto"></audio>
+<audio id="hover-3" src="hover-3.mp3" preload="auto"></audio>
+<audio id="hover-4" src="hover-4.mp3" preload="auto"></audio>
+<audio id="hover-5" src="hover-5.mp3" preload="auto"></audio>
+<audio id="hover-6" src="hover-6.mp3" preload="auto"></audio>
 
 <div class="noise"></div>
 
@@ -402,36 +409,70 @@ function unlockGate(){
   unlocked = true;
 
   document.body.classList.add("unlocked");
-
-  // ⛔ DỪNG xoay
   dragging = false;
 
-  // 💥 ZOOM CAMERA (KHÔNG đụng logo)
-  const wrap = document.getElementById("gate-logo-wrap");
   const scene = document.getElementById("scene");
-    scene.style.transform = "scale(1)";
+  scene.style.transform = "scale(1)";
 
-
-  // tăng glow cho đã
   logo.style.filter =
     "drop-shadow(0 0 100px rgba(100,255,0,1))";
 
-  // 🌑 fade gate
   gate.style.transition = "opacity 2s ease";
   gate.style.opacity = "0";
 
+  // 🔊 SOUND GATE
+  gateAudio.currentTime = 0;
+  gateAudio.play().catch(err => console.log(err));
+
+  // 🔊 ĐÈN HUỲNH QUANG FADE IN
+  const bgMusic = document.getElementById("bg-music");
+
+  bgMusic.volume = 0; // bắt đầu từ 0
+  bgMusic.play().catch(err => console.log(err));
+
+  let targetVolume = 0.24;
+  let fadeSpeed = 0.004; // chỉnh tốc độ tại đây
+
+  let fadeInterval = setInterval(()=>{
+    if(bgMusic.volume < targetVolume){
+      bgMusic.volume = Math.min(bgMusic.volume + fadeSpeed, targetVolume);
+    } else {
+      clearInterval(fadeInterval);
+    }
+  }, 80); // càng nhỏ càng mượt
+
   setTimeout(()=>{
     gate.remove();
-
-    gateAudio.volume = 1;
-    gateAudio.play();
-
-    const bgMusic = document.getElementById("bg-music");
-    bgMusic.volume = 0.3;
-    bgMusic.play();
-
   }, 1800);
 }
+
+// 🔊 HOVER SOUND SYSTEM
+const nodes = document.querySelectorAll(".node");
+
+nodes.forEach((node, index) => {
+
+  const sound = document.getElementById(`hover-${index+1}`);
+
+  if(!sound) return;
+
+  node.addEventListener("mouseenter", () => {
+
+    if(!unlocked) return;
+
+    sound.currentTime = 0;
+    sound.volume = 0.6;
+    sound.play().catch(()=>{});
+
+  });
+
+  node.addEventListener("mouseleave", () => {
+
+    sound.pause();
+    sound.currentTime = 0;
+
+  });
+
+});
 </script>
 
 </div>
