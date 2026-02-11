@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>RadiA — Hub</title>
   <link rel="icon" href="favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     :root{
@@ -50,7 +51,7 @@
 
     h1{
       margin:30px 0 10px;
-      font-size:3rem;
+      font-size:3.8em;
       letter-spacing:4px;
       color:var(--neon-main);
       text-shadow:0 0 20px rgba(100,255,0,.6);
@@ -244,8 +245,20 @@
     #scene{
       transform-origin: center center;
       transform: scale(1.8); /* 👈 BAN ĐẦU PHÓNG TO */
-      transition: transform 2s cubic-bezier(.1,.9,.2,1);
+      transition: transform 4s cubic-bezier(.65,-0.8,.35,1.8);
       will-change: transform;
+    }
+
+    @media (max-width: 768px){
+      #scene{
+        transform: scale(1.05);
+      }
+    }
+
+    @media (max-width: 768px){
+      #scene{
+        transition: transform 3.2s cubic-bezier(.4,0,.2,1);
+      }
     }
 
   </style>
@@ -263,6 +276,7 @@
 </div>
 
 <audio id="gate-audio" src="gate.mp3" preload="auto"></audio>
+<audio id="bg-music" src="radio.mp3" loop preload="auto"></audio>
 
 <div class="noise"></div>
 
@@ -340,15 +354,6 @@ function getAngle(e){
   return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
 }
 
-function render(){
-  totalRotation += (targetRotation - totalRotation) * 0.25;
-
-  // ✅ XOAY LOGO Ở ĐÂY
-  logo.style.transform = `rotate(${totalRotation}deg)`;
-
-  requestAnimationFrame(render);
-}
-
 render();
 
 logo.addEventListener("pointerdown", e=>{
@@ -420,6 +425,11 @@ function unlockGate(){
 
     gateAudio.volume = 1;
     gateAudio.play();
+
+    const bgMusic = document.getElementById("bg-music");
+    bgMusic.volume = 0.3;
+    bgMusic.play();
+
   }, 1800);
 }
 </script>
