@@ -147,7 +147,10 @@
     .radiant-text span::before{
       content: attr(data-text);
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
 
       color: transparent;
@@ -164,6 +167,7 @@
     /* LÕI CHỮ */
     .radiant-text span{
       position: relative;
+      display: inline-block;   /* QUAN TRỌNG */
       color: #C3FF00;
     }
 
@@ -273,6 +277,10 @@
         filter: drop-shadow(0 0 12px rgba(100,255,0,.3));
       }
 
+    }
+
+    .radiant-text{
+      line-height: 1.05;
     }
 
   </style>
