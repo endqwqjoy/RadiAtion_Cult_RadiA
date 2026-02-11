@@ -244,14 +244,15 @@
 
     #scene{
       transform-origin: center center;
-      transform: scale(1.8); /* 👈 BAN ĐẦU PHÓNG TO */
-      transition: transform 4s cubic-bezier(.65,-0.8,.35,1.8);
+      transform: scale(1.5); /* 👈 BAN ĐẦU PHÓNG TO */
+      transition: transform 4s cubic-bezier(.6,0,.4,1);
       will-change: transform;
     }
 
     @media (max-width: 768px){
       #scene{
-        transform: scale(1.05);
+        transform: scale(1.0);
+        transition: transform 2.8s ease;
       }
     }
 
@@ -259,6 +260,19 @@
       #scene{
         transition: transform 3.2s cubic-bezier(.4,0,.2,1);
       }
+    }
+
+    @media (max-width: 768px){
+
+      .radiant-text span::before{
+        -webkit-text-stroke: 5px #1DFF00;
+        filter: blur(1px);
+      }
+
+      .radiant-text{
+        filter: drop-shadow(0 0 12px rgba(100,255,0,.3));
+      }
+
     }
 
   </style>
@@ -386,7 +400,7 @@ logo.addEventListener("pointermove", e=>{
 
   lastAngle = angle;
 
-  if(targetRotation >= 13 * 360){
+  if(targetRotation >= 6 * 360){
     unlockGate();
   }
 });
@@ -412,7 +426,7 @@ function unlockGate(){
   dragging = false;
 
   const scene = document.getElementById("scene");
-  scene.style.transform = "scale(1)";
+  scene.style.transform = "scale(1.0)";
 
   logo.style.filter =
     "drop-shadow(0 0 100px rgba(100,255,0,1))";
