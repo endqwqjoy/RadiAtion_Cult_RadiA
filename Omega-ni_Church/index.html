@@ -21,7 +21,7 @@
     }
 
     html {
-      font-size: clamp(15px, 1vw + 14px, 19px);
+      font-size: 18px; /* kích thước gốc desktop */
     }
 
     body {
@@ -1021,11 +1021,11 @@
   const float = document.querySelector('.hero-logo-float');
 
   let currentY = -77480;
-  let targetY = -50;
+  let targetY = -100;
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
-    targetY = -50 + scrollY * 0.01;
+    targetY = -100 + scrollY * 0.01;
   });
 
   function animate() {
