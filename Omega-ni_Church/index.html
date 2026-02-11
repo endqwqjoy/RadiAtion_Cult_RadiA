@@ -1021,11 +1021,11 @@
   const float = document.querySelector('.hero-logo-float');
 
   let currentY = -77480;
-  let targetY = -100;
+  let targetY = -80;
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
-    targetY = -100 + scrollY * 0.02;
+    targetY = -80 + scrollY * 0.02;
   });
 
   function animate() {
